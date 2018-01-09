@@ -2,7 +2,7 @@ import pandas
 import matplotlib.pyplot as plt
 
 from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_score,train_test_split
+from sklearn.model_selection import cross_val_score, train_test_split
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -19,8 +19,8 @@ dataset = pandas.read_csv(url, names=names)
 
 # Split-out validation dataset
 array = dataset.values
-X = array[:,0:4]
-Y = array[:,4]
+X = array[:, 0:4]
+Y = array[:, 4]
 validation_size = 0.20
 seed = 7
 X_train, X_validation, Y_train, Y_validation = train_test_split(X, Y, test_size=validation_size, random_state=seed)
@@ -41,13 +41,12 @@ models.append(('SVM', SVC()))
 results = []
 names = []
 for name, model in models:
-	kfold = KFold(n_splits=10, random_state=seed)
-	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
-	results.append(cv_results)
-	names.append(name)
-	msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
-	print(msg)
-    
+    kfold = KFold(n_splits=10, random_state=seed)
+    cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+    results.append(cv_results)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    print(msg)
 
 # Compare Algorithms
 fig = plt.figure()
